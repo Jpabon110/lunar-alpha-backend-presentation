@@ -1,0 +1,49 @@
+{
+  "name": "lunar-alpha-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/server.js",
+    "build": "tsc",
+    "dev": "nodemon",
+    "test": "jest",
+    "db:seed": "prisma db seed"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "amqplib": "^0.10.4",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "node-cron": "^3.0.3",
+    "prisma": "^5.22.0"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.10.5",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.9.0",
+    "@types/node-cron": "^3.0.11",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.7",
+    "sinon-chai": "^4.0.0",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  },
+  "description": "",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  }
+}

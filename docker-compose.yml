@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password123@db:5432/lunar_alpha
+      - JWT_SECRET=shhhhh
+      - JWT_EXPIRED_TIME=12h
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
+      - RABBITMQ_QUEUE=resource_updates
+      - CRONTAB=*/10 * * * * *
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_started
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password123
+      - POSTGRES_DB=lunar_alpha
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  postgres_data:
+  rabbitmq_data:

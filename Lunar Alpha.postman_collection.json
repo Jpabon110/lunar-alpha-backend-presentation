@@ -1,0 +1,481 @@
+{
+	"info": {
+		"_postman_id": "3073a786-c62d-4f13-b8ae-b8dd10e35267",
+		"name": "Lunar Alpha",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "105782"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Juan Pérez\",\n  \"email\": \"juan@example.com\",\n  \"password\": \"password123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const { token } = pm.response.json();\r",
+							"pm.collectionVariables.set('token', token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"juan@example.com\",\n  \"password\": \"password123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				},
+				"description": "Generated from cURL: curl -X GET http://localhost:3000/users \\\n-H \"Authorization: Bearer {token}\""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const { id } = pm.response.json();\r",
+							"pm.collectionVariables.set('task-id', id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Revisar sistemas\",\n  \"description\": \"Realizar revisión de sistemas críticos\",\n  \"priority\": \"high\",\n  \"userId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/tasks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tasks"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST http://localhost:3000/tasks \\\n-H \"Authorization: Bearer {token}\" \\\n-H \"Content-Type: application/json\" \\\n-d '{\n  \"title\": \"Revisar sistemas\",\n  \"description\": \"Realizar revisión de sistemas críticos\",\n  \"priority\": \"high\",\n  \"userId\": 1\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tasks",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/tasks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tasks"
+					]
+				},
+				"description": "Generated from cURL: curl -X GET http://localhost:3000/tasks \\\n-H \"Authorization: Bearer {token}\""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Task By Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/tasks/{{task-id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tasks",
+						"{{task-id}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X GET http://localhost:3000/tasks/1 \\\n-H \"Authorization: Bearer {token}\""
+			},
+			"response": []
+		},
+		{
+			"name": "Update Task By Id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Revisar sistemas actualizados\",\n  \"priority\": \"medium\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/tasks//{{task-id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tasks",
+						"",
+						"{{task-id}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X PUT http://localhost:3000/tasks/1 \\\n-H \"Authorization: Bearer {token}\" \\\n-H \"Content-Type: application/json\" \\\n-d '{\n  \"title\": \"Revisar sistemas actualizados\",\n  \"priority\": \"medium\"\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Task By Id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/tasks//{{task-id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tasks",
+						"",
+						"{{task-id}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X DELETE http://localhost:3000/tasks/1 \\\n-H \"Authorization: Bearer {token}\""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Resource",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const { type } = pm.response.json();\r",
+							"pm.collectionVariables.set('resource-type', type);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"Oxygen\",\n  \"level\": 85,\n  \"critical\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/resources",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"resources"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST http://localhost:3000/resources \\\n-H \"Authorization: Bearer {token}\" \\\n-H \"Content-Type: application/json\" \\\n-d '{\n  \"type\": \"Oxygen\",\n  \"level\": 85,\n  \"critical\": false\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Resources",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/resources",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"resources"
+					]
+				},
+				"description": "Generated from cURL: curl -X GET http://localhost:3000/resources \\\n-H \"Authorization: Bearer {token}\""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Resources By Type ",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"level\": 75,\n  \"critical\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/resources/{{resource-type}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"resources",
+						"{{resource-type}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X PUT http://localhost:3000/resources/Oxygen \\\n-H \"Authorization: Bearer {token}\" \\\n-H \"Content-Type: application/json\" \\\n-d '{\n  \"level\": 75,\n  \"critical\": true\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Events",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Nivel crítico de oxígeno detectado\",\n  \"assignee\": \"Oxygen\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"events"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST http://localhost:3000/events \\\n-H \"Authorization: Bearer {token}\" \\\n-H \"Content-Type: application/json\" \\\n-d '{\n  \"description\": \"Nivel crítico de oxígeno detectado\",\n  \"assignee\": \"Oxygen\"\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Events",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"events"
+					]
+				},
+				"description": "Generated from cURL: curl -X GET http://localhost:3000/events \\\n-H \"Authorization: Bearer {token}\""
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "task-id",
+			"value": ""
+		},
+		{
+			"key": "resource-id",
+			"value": ""
+		},
+		{
+			"key": "resource-type",
+			"value": ""
+		}
+	]
+}
